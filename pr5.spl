@@ -1,0 +1,52 @@
+{
+  readset(firstset);
+  readint(maximum);
+
+  set firstdummy = "a";
+  add(firstdummy,"b");
+  add(firstdummy,"c");
+
+  set seconddummy = "a";
+  add(seconddummy, "b");
+  add(seconddummy, "c");
+
+  set dummyset = emptyset;
+
+  var firstindex = 0;
+  var secondindex = 0;
+
+  while(firstindex<3){
+    var secondindex = 0;
+    while(secondindex<3){
+      add(dummyset,find(firstdummy,firstindex).find(seconddummy,secondindex));
+      var secondindex = secondindex + 1;
+    }
+    var firstindex = firstindex + 1;
+  }
+
+  var dummylength = len(dummyset);
+  var dummyindex = 0;
+  var inputlength = len(firstset);
+  var inputindex = 0;
+  set result = emptyset;
+
+  while(dummyindex < dummylength){
+    var inputindex = 0;
+    while(inputindex < inputlength){
+      add(result,find(firstset,inputindex).find(dummyset,dummyindex));
+      var inputindex = inputindex + 1;
+    }
+    var dummyindex = dummyindex + 1;
+  }
+
+  set realresult = emptyset;
+
+  var index = 0;
+  var firstresultlength = len(result);
+  while(index<maximum && index<firstresultlength){
+    add(realresult,find(result,index));
+    var index = index + 1;
+  }
+
+  printset(realresult);
+}

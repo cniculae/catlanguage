@@ -1,0 +1,25 @@
+{
+	readset(firstset);
+	readset(secondset);
+	readset(thirdset);
+	readint(maximum);
+	U(secondset,firstset);
+	U(thirdset,firstset);
+	set firstresult = emptyset;
+	set secondresult = emptyset;
+	var index = 0;
+	var length = len(secondset);
+	while(index < length && index < maximum){
+		add(firstresult,find(secondset,index));
+		var index = index + 1;
+	}
+	var index = 0;
+	var length = len(thirdset);
+	while(index < length && index < maximum){
+		add(secondresult, find(thirdset,index));
+		var index = index + 1;
+	}
+	printset(firstresult);
+	printset(secondresult);
+
+}

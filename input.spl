@@ -1,0 +1,10 @@
+{
+	var a = 10;
+	var a = 5;
+	var g = "ad";
+	var q = 16;
+	g = "da";
+	a *= 3;
+	printnl(a);
+	printnl("");	
+}

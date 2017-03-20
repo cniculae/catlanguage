@@ -1,0 +1,15 @@
+{
+  readset(firstset);
+  readint(maximum);
+
+  var firstel = find(firstset,0);
+
+  set result = firstel;
+  while(maximum > 1){
+    var maximum = maximum - 1;
+    var firstel = firstel."a";
+    add(result,firstel);
+  }
+
+  printset(result);
+}
