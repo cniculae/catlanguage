@@ -21,6 +21,7 @@ type token =
   | DIFEQ
   | DIVEQ
   | MULTEQ
+  | COMM
   | NOTEQ
   | SMALLER
   | BIGGER
@@ -48,6 +49,9 @@ type token =
   | INTER
   | SETDIF
   | EMPTYSET
+  | DELETEFROMSET
+  | BEGIN
+  | END
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> ParseTree.parsetree

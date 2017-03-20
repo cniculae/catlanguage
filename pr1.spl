@@ -1,13 +1,12 @@
-{
+catDo^o.o^{
 	readset(s);
 	readint(i);
 	var index = 0;
 	var length = (len(s));
 	set result = emptyset;
-	while(index < length && i>0){
+	while(index < length && index < i){
 		add(result,"a".find(s,index));
-		var index = index + 1;
-		var i = i - 1;
+		index = index + 1;
 	}
 	printset(result);
-}
+}catDone^=.=^

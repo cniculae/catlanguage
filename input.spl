@@ -1,10 +1,19 @@
-{
+catDo^o.o^{
 	var a = 10;
 	var a = 5;
 	var g = "ad";
 	var q = 16;
 	g = "da";
 	a *= 3;
+	^-.-^ This works like intended ^-.-^
 	printnl(a);
-	printnl("");	
-}
+	printnl("");
+	set d = "saf";
+	add(d,"dap");
+	delete(d,"saf");
+	printset(d);
+	delete(d,"dap");
+	printset(d);
+	delete(d,"nu");
+	printset(d);
+}catDone^=.=^

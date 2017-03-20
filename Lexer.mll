@@ -4,12 +4,14 @@ open Parser        (* The type token is defined in parser.mli *)
 exception Eof
 }
 rule token = parse
+    |"^-.-^"['a'-'z''A'-'Z''0'-'9'' ''_']+"^-.-^"   {token lexbuf} (* skip comments *)
     |[' ' '\t']       {token lexbuf} (* skip blanks *)
     |['\n']           {token lexbuf} (* skip blanks *)
     |['\r'] ['\n']   {token lexbuf} (* skip blanks *)
-    | ';'  { EOL }
+    |"catDo^o.o^" {BEGIN}
+    |"catDone^=.=^" {END}
     | ','  { COMMA }
-
+    | ';'  { EOL }
     | 'U'      { UNION }
     | 'n'      { INTER }
     | "setdif"    { SETDIF }
@@ -48,6 +50,7 @@ rule token = parse
     | "createset" { CREATESET }
     | "emptyset" { EMPTYSET }
     | "add" { ADDTOSET }
+    | "delete" { DELETEFROMSET }
     | "set" { SET }
     | "var" { VAR }
     | '"'      { STRDEL }

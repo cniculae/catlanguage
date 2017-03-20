@@ -94,12 +94,30 @@ let rec parseCall =
       )
     |AddToSet (name,valueToAdd) ->
       (
-        match(parseCall name),(parseCall valueToAdd) with
-          | String s1, String s2 -> Hashtbl.add setVariables s1 (SS.add s2 (Hashtbl.find setVariables s1)); Integer(0)
-          | String s1, Integer int2 -> Hashtbl.add setVariables s1 (SS.add (string_of_int int2) (Hashtbl.find setVariables s1)); Integer(0)
-          | String s1, Boolean b2 -> Hashtbl.add setVariables s1 (SS.add (string_of_bool b2) (Hashtbl.find setVariables s1)); Integer(0)
+        match(parseCall name) with
+          | String s1 ->
+          (
+            match (Hashtbl.find typeVariables s1), (parseCall valueToAdd) with
+                |'l', String s2 -> Hashtbl.add setVariables s1 (SS.add s2 (Hashtbl.find setVariables s1)); Integer(0)
+                |'l', Integer int2 -> Hashtbl.add setVariables s1 (SS.add (string_of_int int2) (Hashtbl.find setVariables s1)); Integer(0)
+                |'l', Boolean b2 -> Hashtbl.add setVariables s1 (SS.add (string_of_bool b2) (Hashtbl.find setVariables s1)); Integer(0)
+                | _ -> raise Illegal_argument
+          )
           | _ -> raise Illegal_argument
       )
+    |DeleteFromSet (name, valueToDelete) ->
+    (
+      match(parseCall name) with
+        | String s1 ->
+        (
+          match (Hashtbl.find typeVariables s1), (parseCall valueToDelete) with
+              |'l', String s2 -> Hashtbl.add setVariables s1 (SS.remove s2 (Hashtbl.find setVariables s1)); Integer(0)
+              |'l', Integer int2 -> Hashtbl.add setVariables s1 (SS.remove (string_of_int int2) (Hashtbl.find setVariables s1)); Integer(0)
+              |'l', Boolean b2 -> Hashtbl.add setVariables s1 (SS.remove (string_of_bool b2) (Hashtbl.find setVariables s1)); Integer(0)
+              | _ -> raise Illegal_argument
+        )
+        | _ -> raise Illegal_argument
+    )
     |GetVariable (name) ->
       (
         match (parseCall name) with

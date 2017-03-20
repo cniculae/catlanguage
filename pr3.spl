@@ -1,4 +1,4 @@
-{
+catDo^o.o^{
 	readset(firstset);
 	readset(secondset);
 	readset(thirdset);
@@ -22,4 +22,4 @@
 	printset(firstresult);
 	printset(secondresult);
 
-}
+}catDone^=.=^

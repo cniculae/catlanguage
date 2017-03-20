@@ -12,7 +12,7 @@ open ParseTree
 %token ASSIGN
 %token MULT DIV PLUS DIF MOD
 %token PLUSEQ DIFEQ DIVEQ MULTEQ
-
+%token COMM
 %token NOTEQ SMALLER BIGGER SMOREQ BIGOREQ EQUAL NOT
 %token AND OR
 %token IF WHILE
@@ -28,6 +28,8 @@ open ParseTree
 %token PRINTSET
 %token UNION INTER SETDIF
 %token EMPTYSET
+%token DELETEFROMSET
+%token BEGIN END
 
 %left AND
 %left OR
@@ -45,8 +47,8 @@ open ParseTree
 /* PROGRAM: */
 main:
     | EOL EOF           { Integer(0) }
-    | scope EOL EOF     { $1 }
-    | scope EOF         { $1 }
+    | BEGIN scope END EOL EOF     { $2 }
+    | BEGIN scope END EOF         { $2 }
     | EOF               { Integer(0) }
 ;;
 /* SOLVE IT LATER */
@@ -72,6 +74,7 @@ call:
     | SET STRING ASSIGN expr            { AssignSet(String($2),$4) }
     | SET STRING ASSIGN EMPTYSET        { AssignEmptySet(String($2)) }
     | ADDTOSET LPAREN STRING COMMA expr RPAREN             { AddToSet(String($3),$5) }
+    | DELETEFROMSET LPAREN STRING COMMA expr RPAREN        { DeleteFromSet(String($3),$5) }
     | UNION LPAREN STRING COMMA STRING RPAREN              { Union(String($3),String($5)) }
     | INTER LPAREN STRING COMMA STRING RPAREN              { Intersection(String($3),String($5)) }
     | SETDIF LPAREN STRING COMMA STRING RPAREN             { SetDifference(String($3),String($5)) }

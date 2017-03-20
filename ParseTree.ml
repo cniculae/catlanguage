@@ -15,6 +15,7 @@ type parsetree =
 |AssignSet of parsetree*parsetree
 |AssignEmptySet of parsetree
 |AddToSet of parsetree*parsetree
+|DeleteFromSet of parsetree*parsetree
 |GetVariable of parsetree
 
 |PlusEqual of parsetree*parsetree
