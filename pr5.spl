@@ -1,7 +1,9 @@
 catDo^o.o^{
+  ^-.-^Reading input^-.-^
   readset(firstset);
   readint(maximum);
 
+  ^-.-^Creating the set of all string of length 2, over the characters a,b,c^-.-^
   set firstdummy = "a";
   add(firstdummy,"b");
   add(firstdummy,"c");
@@ -15,6 +17,7 @@ catDo^o.o^{
   var firstindex = 0;
   var secondindex = 0;
 
+  ^-.-^Concatenating the 2 sets toghether, to create the desired set^-.-^
   while(firstindex<3){
     var secondindex = 0;
     while(secondindex<3){
@@ -24,12 +27,14 @@ catDo^o.o^{
     var firstindex = firstindex + 1;
   }
 
+  ^-.-^Setting up some variables for finding out the result^-.-^
   var dummylength = len(dummyset);
   var dummyindex = 0;
   var inputlength = len(firstset);
   var inputindex = 0;
   set result = emptyset;
 
+  ^-.-^Generating the whole set^-.-^
   while(dummyindex < dummylength){
     var inputindex = 0;
     while(inputindex < inputlength){
@@ -39,8 +44,8 @@ catDo^o.o^{
     var dummyindex = dummyindex + 1;
   }
 
+  ^-.-^Taking only the elements we want to show of the last set^-.-^
   set realresult = emptyset;
-
   var index = 0;
   var firstresultlength = len(result);
   while(index<maximum && index<firstresultlength){
@@ -48,5 +53,6 @@ catDo^o.o^{
     var index = index + 1;
   }
 
+  ^-.-^Printing the result^-.-^
   printset(realresult);
 }catDone^=.=^

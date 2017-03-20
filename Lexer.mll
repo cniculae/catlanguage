@@ -4,7 +4,7 @@ open Parser        (* The type token is defined in parser.mli *)
 exception Eof
 }
 rule token = parse
-    |"^-.-^"['a'-'z''A'-'Z''0'-'9'' ''_']+"^-.-^"   {token lexbuf} (* skip comments *)
+    |"^-.-^"['a'-'z''A'-'Z''0'-'9'' ''_'',']+"^-.-^"   {token lexbuf} (* skip comments *)
     |[' ' '\t']       {token lexbuf} (* skip blanks *)
     |['\n']           {token lexbuf} (* skip blanks *)
     |['\r'] ['\n']   {token lexbuf} (* skip blanks *)

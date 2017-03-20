@@ -1,14 +1,14 @@
 %{
 open ParseTree
 %}
+%token EOL EOF
+%token BEGIN END
 %token LCURLY RCURLY
 %token LPAREN RPAREN
 %token COMMA
 %token LEN FIND
 %token READINT READSET
 %token VAR
-%token <int> INT
-%token <string> STRING
 %token ASSIGN
 %token MULT DIV PLUS DIF MOD
 %token PLUSEQ DIFEQ DIVEQ MULTEQ
@@ -16,27 +16,22 @@ open ParseTree
 %token NOTEQ SMALLER BIGGER SMOREQ BIGOREQ EQUAL NOT
 %token AND OR
 %token IF WHILE
-%token EOL EOF
 %token CONCAT
 %token TRUE FALSE
 %token STRDEL
-%token PRINTNL
-%token PRINT
-%token SET
-%token ADDTOSET
-%token CREATESET
-%token PRINTSET
-%token UNION INTER SETDIF
-%token EMPTYSET
-%token DELETEFROMSET
-%token BEGIN END
+%token PRINTNL PRINT
+%token SET EMPTYSET
+%token CREATESET ADDTOSET
+%token UNION INTER SETDIF DELETEFROMSET PRINTSET
+%token <int> INT
+%token <string> STRING
 
-%left AND
+%left AND       /* lowest precedence */
 %left OR
-%left NOTEQ SMALLER BIGGER SMOREQ BIGOREQ EQUAL NOT      /* lowest precedence */
-%left PLUS DIF        /* lowest precedence */
-%left MULT DIV         /* medium precedence */
-%left MOD
+%left NOTEQ SMALLER BIGGER SMOREQ BIGOREQ EQUAL NOT
+%left PLUS DIF
+%left MULT DIV
+%left MOD       /* highest precedence */
 
 %type <ParseTree.parsetree> main
 
@@ -51,12 +46,12 @@ main:
     | BEGIN scope END EOF         { $2 }
     | EOF               { Integer(0) }
 ;;
-/* SOLVE IT LATER */
+/* main scope */
 scope:
     | LCURLY statements RCURLY  { $2 }
     | EOF                       { Integer(0) }
 ;;
-
+/* Statements (e.g. IF, WHILE) */
 statements:
     | IF LPAREN expr RPAREN scope       { ExecuteIf($3,$5) }
     | WHILE LPAREN expr RPAREN scope    { ExecuteWhile($3,$5) }
@@ -65,6 +60,7 @@ statements:
     | statements statements             { MultiStatements($1,$2) }
 ;;
 
+/* Calls (like Functions) */
 call:
     | PRINT LPAREN expr RPAREN          { Print($3) }
     | PRINTNL LPAREN expr RPAREN        { PrintNL($3) }
@@ -87,6 +83,7 @@ call:
 
 ;;
 
+/* Expressions */
 expr:
     | INT                   { Integer($1) }
     | TRUE                  { Boolean(true) }

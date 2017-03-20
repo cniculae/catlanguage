@@ -5,10 +5,9 @@ open List;;
 open Set;;
 open ParseTree;;
 open Lexer;;
+
 exception Runtime_error
 exception Illegal_argument
-exception LoopBreak
-exception CloseProgram
 
 (* Initialize Variables *)
 module SS = Set.Make(String);;
@@ -255,6 +254,7 @@ let rec parseCall =
           else raise Illegal_argument
           | _ -> raise Illegal_argument
       )
+
 (* IFs and Loops *)
     |ExecuteIf (checkStm, execStm) ->
           if ((createBool (parseCall checkStm)) == true) then (parseCall execStm) else Integer(0);
@@ -262,7 +262,6 @@ let rec parseCall =
           while ((createBool (parseCall checkStm)) == true) do (parseCall execStm) done; Integer(0)
 
 (* Printing Functions: *)
-
     |Print (toBePrinted) ->
   		(
   			match (parseCall toBePrinted) with
@@ -286,6 +285,7 @@ let rec parseCall =
               else raise Illegal_argument
             | _ -> raise Illegal_argument
       )
+
 (* Reading Functions *)
     |ReadInt (variable) ->
       (
@@ -316,17 +316,16 @@ let rec parseCall =
       )
 ;;
 
-(*Modify it and comment it: *)
+(*Setting up the main*)
 let cin = open_in Sys.argv.(1);;
 let lexbuf = Lexing.from_channel cin
-
 let result = Parser.main Lexer.token lexbuf
-
 let main () =
 try
        parseCall result;
   with End_of_file -> exit 0
 ;;
-(* START MAIN *)
+
+(* Start Main*)
 
 main();;

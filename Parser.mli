@@ -1,4 +1,8 @@
 type token =
+  | EOL
+  | EOF
+  | BEGIN
+  | END
   | LCURLY
   | RCURLY
   | LPAREN
@@ -9,8 +13,6 @@ type token =
   | READINT
   | READSET
   | VAR
-  | INT of (int)
-  | STRING of (string)
   | ASSIGN
   | MULT
   | DIV
@@ -33,8 +35,6 @@ type token =
   | OR
   | IF
   | WHILE
-  | EOL
-  | EOF
   | CONCAT
   | TRUE
   | FALSE
@@ -42,16 +42,16 @@ type token =
   | PRINTNL
   | PRINT
   | SET
-  | ADDTOSET
+  | EMPTYSET
   | CREATESET
-  | PRINTSET
+  | ADDTOSET
   | UNION
   | INTER
   | SETDIF
-  | EMPTYSET
   | DELETEFROMSET
-  | BEGIN
-  | END
+  | PRINTSET
+  | INT of (int)
+  | STRING of (string)
 
 val main :
   (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> ParseTree.parsetree
