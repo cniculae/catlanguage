@@ -301,7 +301,7 @@ let rec parseCall =
                 Hashtbl.add typeVariables s1 'l';
                 Hashtbl.add setVariables s1 (SS.empty);
                 let input = read_line() in
-                let elementsList = if(input="{}") then [] else Str.split (regexp ", ") (List.hd (Str.split (regexp "}") (List.hd (Str.split (regexp "{") input)))) in
+                let elementsList = if(input="{}") then [] else Str.split (regexp "[' ''\t']*,[' ''\t']*") (List.hd (Str.split (regexp "}") (List.hd (Str.split (regexp "{") input)))) in
                   let rec putInSet ls set =
                     match ls with
                       | [x] -> if(x<"a") then parseCall(AddToSet(String(set),String(""))) else parseCall(AddToSet(String(set),String(x)))
